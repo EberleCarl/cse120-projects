@@ -1,9 +1,26 @@
-using System;
-
-class Program
+public class Word
 {
-    static void Main(string[] args)
+    private string _text;
+    private bool _isHidden;
+
+    public Word(string text)
     {
-        Console.WriteLine("Hello Develop03 World!");
+        _text = text;
+        _isHidden = false;
+    }
+
+    public void Hide()
+    {
+        _isHidden = true;
+    }
+
+    public bool IsHidden()
+    {
+        return _isHidden;
+    }
+
+    public string GetDisplayText()
+    {
+        return _isHidden ? "_____" : _text;
     }
 }
