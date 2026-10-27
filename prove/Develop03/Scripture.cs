@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Scripture
 {
@@ -10,16 +11,12 @@ public class Scripture
     public Scripture(Reference reference, string text)
     {
         _reference = reference;
-        _words = new List<Word>();
-
-        string[] splitWords = text.Split(' ');
-        foreach (string w in splitWords)
-        {
-            _words.Add(new Word(w));
-        }
+        _words = text.Split(" ")
+                     .Select(w => new Word(w))
+                     .ToList();
     }
 
-    public void HideRandomWords(int count)
+    public void HideRandomWords(int count = 3)
     {
         for (int i = 0; i < count; i++)
         {
@@ -30,24 +27,13 @@ public class Scripture
 
     public bool AllWordsHidden()
     {
-        foreach (Word w in _words)
-        {
-            if (!w.IsHidden())
-                return false;
-        }
-        return true;
+        return _words.All(w => w.IsHidden());
     }
 
-    public void Display()
+    public string GetDisplayText()
     {
-        Console.WriteLine(_reference.GetDisplayText());
-        Console.WriteLine();
-
-        foreach (Word w in _words)
-        {
-            Console.Write(w.GetDisplayText() + " ");
-        }
-
-        Console.WriteLine("\n");
+        string referenceText = _reference.GetReferenceText();
+        string scriptureText = string.Join(" ", _words.Select(w => w.GetDisplayText()));
+        return $"{referenceText}\n{scriptureText}";
     }
 }

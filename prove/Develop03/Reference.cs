@@ -1,33 +1,30 @@
 public class Reference
 {
-    private string _book;
-    private int _chapter;
-    private int _verseStart;
-    private int _verseEnd;
+    public string Book { get; private set; }
+    public int StartVerse { get; private set; }
+    public int EndVerse { get; private set; }
 
     // Constructor for single verse
-    public Reference(string book, int chapter, int verse)
+    public Reference(string book, int verse)
     {
-        _book = book;
-        _chapter = chapter;
-        _verseStart = verse;
-        _verseEnd = verse;
+        Book = book;
+        StartVerse = verse;
+        EndVerse = verse;
     }
 
     // Constructor for verse range
-    public Reference(string book, int chapter, int verseStart, int verseEnd)
+    public Reference(string book, int startVerse, int endVerse)
     {
-        _book = book;
-        _chapter = chapter;
-        _verseStart = verseStart;
-        _verseEnd = verseEnd;
+        Book = book;
+        StartVerse = startVerse;
+        EndVerse = endVerse;
     }
 
-    public string GetDisplayText()
+    public string GetReferenceText()
     {
-        if (_verseStart == _verseEnd)
-            return $"{_book} {_chapter}:{_verseStart}";
+        if (StartVerse == EndVerse)
+            return $"{Book} {StartVerse}";
         else
-            return $"{_book} {_chapter}:{_verseStart}-{_verseEnd}";
+            return $"{Book} {StartVerse}-{EndVerse}";
     }
 }
